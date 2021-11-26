@@ -136,6 +136,24 @@ public class Notification {
             notificationBuilder.setGroupSummary(true);
         }
 
+        if(attributes.payload != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+            String notificationData = attributes.payload;
+            try {
+                JSONObject payloadObject = new JSONObject(notificationData);
+                if (payloadObject.has("category")){
+                    String categoryId = payloadObject.getString("category");
+                    notificationBuilder.setChannelId(categoryId);
+                }
+                else{
+                    String PackageNAME = this.getContext().getPackageName();
+                    notificationBuilder.setChannelId(PackageNAME);
+                }
+            }
+            catch(Exception ex){
+                Log.i("Error", "Notification: " + ex.getMessage());
+            }
+        }
+
         if (attributes.inboxStyle) {
 
             androidx.core.app.NotificationCompat.InboxStyle inboxStyle = new androidx.core.app.NotificationCompat.InboxStyle();
