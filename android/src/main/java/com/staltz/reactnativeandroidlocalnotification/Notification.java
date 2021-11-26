@@ -24,6 +24,7 @@ import android.text.Html;
 import android.util.Log;
 import android.graphics.Color;
 
+import org.json.JSONObject;
 /**
  * An object-oriented Wrapper class around the system notification class.
  *
